@@ -1,0 +1,25 @@
+{
+  "telegram": {
+    "bot_token": "ВАШ_ТОКЕН_ОТ_BOTFATHER",
+    "chat_id": "ВАШ_CHAT_ID_ОТ_USERINFOBOT"
+  },
+  "google_sheets": {
+    "enabled": true,
+    "key_file": "config/bubble-key.json",
+    "sheet_id": "1wMDIgZgrQt_BBzPkF2ntaBW570olxgQvesjY2h8sjDA",
+    "worksheet_name": "wb_test_data"
+  },
+  "openai": {
+    "enabled": false,
+    "api_key": "sk-...",
+    "model": "gpt-3.5-turbo"
+  },
+  "anomaly_thresholds": {
+    "zscore": 2.0,
+    "percent_change": 30
+  },
+  "dashboard": {
+    "port": 8502,
+    "auto_open": true
+  }
+}
