@@ -1,0 +1,17 @@
+# Secrets and sensitive files
+config/bubble-key.json
+config/wb-creds.json
+config/bubble-*.json
+*.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+Thumbs.db
+# Large archives
+wb_ai_system_v*.tar.gz
+# Logs
+*.log
