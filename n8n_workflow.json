@@ -1,0 +1,1040 @@
+{
+  "name": "Telegram AI Operator (Mock ElevenLabs)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "8e3ae6dc-f5f5-4473-84e1-15a05e7eb15d",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -864,
+        592
+      ],
+      "webhookId": "telegram-ai-operator-mock",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.message.text}}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.message.text}}",
+                    "rightValue": "/agents",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.message.text}}",
+                    "rightValue": "^\\/select\\s+\\d+$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.message.text}}",
+                    "rightValue": "^\\/apikey\\s+.+$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.message.text}}",
+                    "rightValue": "^\\/prompt\\s+[\\s\\S]+$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.message.text}}",
+                    "rightValue": "^\\/welcome\\s+[\\s\\S]+$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.message.text}}",
+                    "rightValue": "^\\/knowledge\\s+[\\s\\S]+$",
+                    "operator": {
+                      "type": "string",
+                      "operation": "regex"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.message.text}}",
+                    "rightValue": "/sync",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "993ac875-e5a7-4751-ab08-a7afb51ff54a",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -640,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json.message.chat.id}}",
+        "text": "🚀 AI Operator online (Mock mode - no ElevenLabs)\n\nCommands:\n/agents – list your agents\n/select N – select agent\n/apikey KEY – save ElevenLabs API key (not used in mock)\n/prompt TEXT – update system prompt\n/welcome TEXT – update welcome message\n/knowledge TEXT – update knowledge base\n/sync – simulate sync (mock)",
+        "additionalFields": {}
+      },
+      "id": "d81edc45-8a47-4d06-8b43-0dc0807f8cb0",
+      "name": "Start Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "3f387fe3-c86e-41bb-a44f-e82ef37d6a4d",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, agent_name FROM agents WHERE user_id = (SELECT id FROM users WHERE telegram_id = {{$json.message.from.id}}) ORDER BY id;",
+        "options": {}
+      },
+      "id": "2b183de5-a59d-4a4b-9c3c-7642bfef7dbb",
+      "name": "Get Agents",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        192
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "Ic3RVQrZA6cYtyNa",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const rows = items.map(i => i.json);\nif (!rows.length) return [{json:{text:'You have no agents yet'}}];\nconst text = rows.map((r,i)=>`${i+1}. ${r.agent_name}`).join('\\n');\nreturn [{json:{text:`🤖 Your agents:\\n\\n${text}\\n\\n/select N`}}];"
+      },
+      "id": "66083417-a8cd-428b-bae8-ed9da48352ea",
+      "name": "Format Agents",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        272,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$('Telegram Trigger').item.json.message.chat.id}}",
+        "text": "={{$json.text}}",
+        "additionalFields": {}
+      },
+      "id": "008a9107-981d-4081-83aa-d79667fef044",
+      "name": "Send Agents",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        192
+      ],
+      "webhookId": "f69727b6-2dfb-4979-b390-56db8a5bff0d",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const text = $json.message.text;\nconst match = text.match(/^\\/select\\s+(\\d+)/);\nif(!match) return [{json:{error:'Usage: /select 1'}}];\nreturn [{json:{num:parseInt(match[1],10)}}];"
+      },
+      "id": "211e4ac7-7f2d-456c-9415-58134ae8a281",
+      "name": "Extract Select",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, agent_name FROM agents WHERE user_id = (SELECT id FROM users WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}}) ORDER BY id;",
+        "options": {}
+      },
+      "id": "2566d7c0-0e59-4142-aa86-a28e22ab7a45",
+      "name": "Get Select Agents",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        272,
+        384
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "Ic3RVQrZA6cYtyNa",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const selected = $('Extract Select').first().json.num;\nconst rows = items.map(i=>i.json);\nif(selected > rows.length) return [{json:{error:'Invalid number'}}];\nconst agent = rows[selected-1];\nreturn [{json:{agentId:agent.id,agentName:agent.agent_name}}];"
+      },
+      "id": "fe27f2fa-dc27-4a59-89da-e86733eec79d",
+      "name": "Validate Select",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        528,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE users SET selected_agent_id = {{$json.agentId}} WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}};",
+        "options": {}
+      },
+      "id": "cc4515a8-2a52-4d75-bab1-5bdae73f3427",
+      "name": "Set Selected Agent",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        784,
+        384
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "Ic3RVQrZA6cYtyNa",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$('Telegram Trigger').item.json.message.chat.id}}",
+        "text": "={{'✅ Agent selected: ' + $('Validate Select').first().json.agentName}}",
+        "additionalFields": {}
+      },
+      "id": "31df8865-4004-48f7-9175-6ccea0157245",
+      "name": "Confirm Select",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1040,
+        384
+      ],
+      "webhookId": "8ad319dd-b6bc-498d-8cf1-6df97d80a891",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const text = $json.message.text;\nconst match = text.match(/^\\/apikey\\s+(.+)/);\nif(!match) return [{json:{error:'Usage: /apikey sk_xxx'}}];\nreturn [{json:{apiKey:match[1]}}];"
+      },
+      "id": "80e55be8-7f5e-4a7c-9394-806313eda221",
+      "name": "Extract API Key",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE users SET elevenlabs_api_key = '{{$json.apiKey}}' WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}};",
+        "options": {}
+      },
+      "id": "7c5b9fed-4305-4eb6-bbe6-0cbd06d97005",
+      "name": "Save API Key",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        272,
+        592
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "Ic3RVQrZA6cYtyNa",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$('Telegram Trigger').item.json.message.chat.id}}",
+        "text": "✅ API key saved (mock mode – not validated)",
+        "additionalFields": {}
+      },
+      "id": "79654916-37b7-4f17-b946-ffac948d068b",
+      "name": "Confirm API Key",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        592
+      ],
+      "webhookId": "d5690eda-8822-4f8f-aed2-2d001b723010",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const text = $json.message.text;\nconst match = text.match(/^\\/prompt\\s+([\\s\\S]+)/);\nif(!match) return [{json:{error:'Usage: /prompt new prompt text'}}];\nreturn [{json:{prompt:match[1]}}];"
+      },
+      "id": "341720f1-fefc-4c88-8041-3dc3acfed9d1",
+      "name": "Extract Prompt",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        784
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE agents SET system_prompt = '{{$json.prompt}}' WHERE id = (SELECT selected_agent_id FROM users WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}}) AND EXISTS (SELECT 1 FROM users WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}} AND selected_agent_id IS NOT NULL);",
+        "options": {}
+      },
+      "id": "19e9342c-559a-4c32-bf55-a4ebc3cf2a86",
+      "name": "Update Prompt",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        272,
+        784
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "Ic3RVQrZA6cYtyNa",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const updatedRows = $input.first().json.affectedRows;\nif (updatedRows === 0) {\n  return [{json:{error:\"No agent selected. Use /select N first.\"}}];\n}\nreturn [{json:{success:true}}];"
+      },
+      "id": "c51ec8c1-507b-4de6-8094-0ac66088295a",
+      "name": "Handle Prompt Result",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        400,
+        784
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$('Telegram Trigger').item.json.message.chat.id}}",
+        "text": "={{$json.error ? '❌ ' + $json.error : '✅ Prompt updated'}}",
+        "additionalFields": {}
+      },
+      "id": "99e645db-bdee-4c89-845e-ea7381f47a68",
+      "name": "Confirm Prompt",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        784
+      ],
+      "webhookId": "ea0b5757-d363-4f15-b006-5e0a63cc66be",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const text = $json.message.text;\nconst match = text.match(/^\\/welcome\\s+([\\s\\S]+)/);\nif(!match) return [{json:{error:'Usage: /welcome Hello! How can I help?'}}];\nreturn [{json:{welcome:match[1]}}];"
+      },
+      "id": "f44c6eb9-9b0c-4f48-af1f-8ad734dcaebb",
+      "name": "Extract Welcome",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        976
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE agents SET welcome_message = '{{$json.welcome}}' WHERE id = (SELECT selected_agent_id FROM users WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}}) AND EXISTS (SELECT 1 FROM users WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}} AND selected_agent_id IS NOT NULL);",
+        "options": {}
+      },
+      "id": "19ba8381-7ac1-4535-9191-b39cb36bd70d",
+      "name": "Update Welcome",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        272,
+        976
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "Ic3RVQrZA6cYtyNa",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const updatedRows = $input.first().json.affectedRows;\nif (updatedRows === 0) {\n  return [{json:{error:\"No agent selected. Use /select N first.\"}}];\n}\nreturn [{json:{success:true}}];"
+      },
+      "id": "113f2a54-3758-4a8d-a964-46040378f313",
+      "name": "Handle Welcome Result",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        400,
+        976
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$('Telegram Trigger').item.json.message.chat.id}}",
+        "text": "={{$json.error ? '❌ ' + $json.error : '✅ Welcome message updated'}}",
+        "additionalFields": {}
+      },
+      "id": "1e41a740-4683-4558-8fcf-b114be90da7a",
+      "name": "Confirm Welcome",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        976
+      ],
+      "webhookId": "73e2d771-df09-4a40-97a7-c44469bd3217",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const text = $json.message.text;\nconst match = text.match(/^\\/knowledge\\s+([\\s\\S]+)/);\nif(!match) return [{json:{error:'Usage: /knowledge your knowledge base text'}}];\nreturn [{json:{knowledge:match[1]}}];"
+      },
+      "id": "f2ed3bec-2b83-44dd-920c-ce90822433ff",
+      "name": "Extract Knowledge",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        0,
+        1152
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE agents SET knowledge = '{{$json.knowledge}}' WHERE id = (SELECT selected_agent_id FROM users WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}}) AND EXISTS (SELECT 1 FROM users WHERE telegram_id = {{$('Telegram Trigger').item.json.message.from.id}} AND selected_agent_id IS NOT NULL);",
+        "options": {}
+      },
+      "id": "68f1e13b-7a89-4b0a-bd03-1fbc5e5e29b6",
+      "name": "Update Knowledge",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        272,
+        1152
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "Ic3RVQrZA6cYtyNa",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const updatedRows = $input.first().json.affectedRows;\nif (updatedRows === 0) {\n  return [{json:{error:\"No agent selected. Use /select N first.\"}}];\n}\nreturn [{json:{success:true}}];"
+      },
+      "id": "824479f3-3342-4b0b-b95d-d5678d309d74",
+      "name": "Handle Knowledge Result",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        400,
+        1152
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$('Telegram Trigger').item.json.message.chat.id}}",
+        "text": "={{$json.error ? '❌ ' + $json.error : '✅ Knowledge base updated'}}",
+        "additionalFields": {}
+      },
+      "id": "1299b8a9-37c9-4714-ba47-530e2c2ffde7",
+      "name": "Confirm Knowledge",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        1152
+      ],
+      "webhookId": "ce044d09-44ff-4ad9-9ead-a718017ff377",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT a.elevenlabs_agent_id, a.system_prompt, a.welcome_message, a.knowledge, u.elevenlabs_api_key FROM agents a JOIN users u ON a.user_id=u.id WHERE a.id = u.selected_agent_id AND u.telegram_id = {{$json.message.from.id}};",
+        "options": {}
+      },
+      "id": "f1c8814c-2587-4905-b735-a9050d182ee0",
+      "name": "Get Sync Data",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        1328
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "Ic3RVQrZA6cYtyNa",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const rows = items.map(i=>i.json);\nif (!rows.length) {\n  return [{json:{error:\"No agent selected or no API key. Use /select N and /apikey.\"}}];\n}\nreturn items;"
+      },
+      "id": "0c41b1e4-8e26-4280-b2cc-c1dc9444c039",
+      "name": "Check Sync Data",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        144,
+        1328
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "// MOCK: Имитация успешного ответа ElevenLabs\nconst data = $input.first().json;\n\n// Добавляем фиктивные поля успешного ответа\nreturn [{\n  json: {\n    success: true,\n    mock: true,\n    agent_id: data.elevenlabs_agent_id,\n    synced_fields: {\n      prompt: data.system_prompt,\n      welcome: data.welcome_message,\n      knowledge: data.knowledge\n    },\n    message: \"Mock sync - ElevenLabs API not called\"\n  }\n}];"
+      },
+      "id": "d92137c0-cda5-4c5a-a628-dd8cdcc15aae",
+      "name": "Mock Sync ElevenLabs",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        336,
+        1328
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{$('Telegram Trigger').item.json.message.chat.id}}",
+        "text": "={{$json.error ? '❌ ' + $json.error : '✅ Agent sync MOCKED (ElevenLabs skipped)\\n\\n' + JSON.stringify($json.synced_fields, null, 2)}}",
+        "additionalFields": {}
+      },
+      "id": "ef5baef6-9a2e-433c-9291-353275614991",
+      "name": "Confirm Sync",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        1328
+      ],
+      "webhookId": "b6309e92-6d4a-4fc6-9555-17c9c707f342",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$json.message.chat.id}}",
+        "text": "❌ Unknown command. Use /start for help.",
+        "additionalFields": {}
+      },
+      "id": "16aeb767-5e78-4b01-9ea9-030da929017f",
+      "name": "Unknown Command",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        1504
+      ],
+      "webhookId": "74072e19-6d80-4f80-8414-302a3ac3b455",
+      "credentials": {
+        "telegramApi": {
+          "id": "OplQDBt5sJJ0nXFo",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Start Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Agents",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Select",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract API Key",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Welcome",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Knowledge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Sync Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Agents": {
+      "main": [
+        [
+          {
+            "node": "Format Agents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Agents": {
+      "main": [
+        [
+          {
+            "node": "Send Agents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Select": {
+      "main": [
+        [
+          {
+            "node": "Get Select Agents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Select Agents": {
+      "main": [
+        [
+          {
+            "node": "Validate Select",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Select": {
+      "main": [
+        [
+          {
+            "node": "Set Selected Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Selected Agent": {
+      "main": [
+        [
+          {
+            "node": "Confirm Select",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract API Key": {
+      "main": [
+        [
+          {
+            "node": "Save API Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save API Key": {
+      "main": [
+        [
+          {
+            "node": "Confirm API Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Prompt": {
+      "main": [
+        [
+          {
+            "node": "Update Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Prompt": {
+      "main": [
+        [
+          {
+            "node": "Handle Prompt Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle Prompt Result": {
+      "main": [
+        [
+          {
+            "node": "Confirm Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Welcome": {
+      "main": [
+        [
+          {
+            "node": "Update Welcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Welcome": {
+      "main": [
+        [
+          {
+            "node": "Handle Welcome Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle Welcome Result": {
+      "main": [
+        [
+          {
+            "node": "Confirm Welcome",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Knowledge": {
+      "main": [
+        [
+          {
+            "node": "Update Knowledge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Knowledge": {
+      "main": [
+        [
+          {
+            "node": "Handle Knowledge Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handle Knowledge Result": {
+      "main": [
+        [
+          {
+            "node": "Confirm Knowledge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Sync Data": {
+      "main": [
+        [
+          {
+            "node": "Check Sync Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Sync Data": {
+      "main": [
+        [
+          {
+            "node": "Mock Sync ElevenLabs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mock Sync ElevenLabs": {
+      "main": [
+        [
+          {
+            "node": "Confirm Sync",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "993deeb0-e5fd-4f8f-985a-0c2a734262c5",
+  "meta": {
+    "instanceId": "0f24f5de68ed0ace14d1581139376eafcc03d692ffefb094b321d456f8b32c07"
+  },
+  "id": "LHKJ4weS6uyTecOP",
+  "tags": []
+}
